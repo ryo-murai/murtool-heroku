@@ -10,6 +10,8 @@ herokuAppName in Compile := "murtools"
 
 herokuJdkVersion in Compile := "1.8"
 
+herokuStack in Compile := "cedar-14"
+
 herokuConfigVars in Compile := Map(
   "JAVA_OPTS" -> "-Xmx384m -Xss512k -XX:+UseCompressedOops"
 )
