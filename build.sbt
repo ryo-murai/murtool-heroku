@@ -28,7 +28,7 @@ herokuConfigVars in Compile := Map(
   "JAVA_OPTS" -> "-Xmx384m -Xss512k -XX:+UseCompressedOops"
 )
 herokuProcessTypes in Compile := Map(
-  "web" -> "target/universal/stage/bin/murtools -Dhttp.port=$PORT"
+  "web" -> "target/universal/stage/bin/murtools -Dhttp.port=$PORT -Dconfig.resource=prod.conf"
 )
 herokuIncludePaths in Compile := Seq(
   "app", "conf", "public"
