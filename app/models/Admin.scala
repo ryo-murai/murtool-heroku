@@ -20,6 +20,11 @@ object Admin extends SkinnyCRUDMapper[Admin] {
     if (res == 0) createWithAttributes('id -> fixedId, 'user -> user, 'password -> password)
   }
 
+  def authenticate(user: String, password: String): Option[Admin] = get match {
+    case a @ Admin(_, u, pw) if u == user && pw == password => Some(a) // todo: hide plaintext pw
+    case _ => None
+  }
+
   private val fixedId = 0L
   private val defaultAdmin = Admin(fixedId, "admin", "admin")
 }

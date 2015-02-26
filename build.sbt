@@ -8,6 +8,7 @@ lazy val root = Project(
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies ++= Seq(
     jdbc,
+    "jp.t2v"               %% "play2-auth"                   % "0.13.0",
     "org.skinny-framework" %% "skinny-orm"                   % "1.3.+",
     "org.scalikejdbc" %% "scalikejdbc-config"                % "2.2.3",
     "org.scalikejdbc" %% "scalikejdbc-play-dbplugin-adapter" % "2.3.4",

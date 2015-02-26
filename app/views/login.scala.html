@@ -1,0 +1,34 @@
+@(form: Form[Option[Admin]])(implicit flash: Flash)
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+
+  @helper.form(action = routes.Sessions.authenticate) {
+
+    @form.globalError.map { error =>
+      <p class="error">
+        @error.message
+      </p>
+    }
+
+    @flash.get("success").map { message =>
+      <p class="success">
+        @message
+      </p>
+    }
+
+    <fieldset>
+      <legend>
+        Login
+      </legend>
+      <p><input type="user" name="user" placeholder="user name" id="user" value="@form("user").value"></p>
+      <p><input type="password" name="password" id="password" placeholder="Password"></p>
+    </fieldset>
+    <p><input type="submit" class="btn primary" value='login'></p>
+  }
+</body>
