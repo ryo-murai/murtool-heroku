@@ -1,14 +1,14 @@
-@(form: Form[Option[Admin]], call: Call = routes.Sessions.authenticate)(implicit flash: Flash)
+@(form: Form[Admin])(implicit flash: Flash)
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Login</title>
+  <title>Update</title>
 </head>
 <body>
-  <h2>Login</h2>
+  <h2>Update</h2>
 
-  @helper.form(action = call) {
+  @helper.form(action = routes.Admins.updateAdmin) {
 
     @form.globalError.map { error =>
       <p class="error">
@@ -24,11 +24,15 @@
 
     <fieldset>
       <legend>
-        Login
+        Administrative Informations
       </legend>
+      <p><input type="hidden" name="id" id="id" value="@form("id").value"></p>
       <p><input type="user" name="user" placeholder="user name" id="user" value="@form("user").value"></p>
       <p><input type="password" name="password" id="password" placeholder="Password"></p>
     </fieldset>
-    <p><input type="submit" class="btn primary" value='login'></p>
+    <p>
+      <input type="submit" class="btn primary" value='Update'>
+      <button class="btn"><a class="btn primary" href="/">Cancel</a></button>
+    </p>
   }
 </body>

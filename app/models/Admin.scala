@@ -6,6 +6,9 @@ import skinny.orm._
 case class Admin(id: Long, user: String, password: String)
 
 object Admin extends SkinnyCRUDMapper[Admin] {
+  val fixedId = 0L
+
+  override def useAutoIncrementPrimaryKey = false
   override val defaultAlias = createAlias("a")
 
   override def extract(rs: WrappedResultSet, n: ResultName[Admin]): Admin = Admin(
@@ -25,6 +28,5 @@ object Admin extends SkinnyCRUDMapper[Admin] {
     case _ => None
   }
 
-  private val fixedId = 0L
   private val defaultAdmin = Admin(fixedId, "admin", "admin")
 }
