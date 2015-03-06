@@ -6,3 +6,6 @@ GET     /admin          controllers.Admins.login
 POST    /admin          controllers.Admins.authenticate
 GET     /admin/update   controllers.Admins.promptLogin
 POST    /admin/update   controllers.Admins.updateAdmin
+
+GET     /mailing        controllers.Mailings.edit 
+POST    /mailing        controllers.Mailings.send 

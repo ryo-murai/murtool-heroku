@@ -9,6 +9,7 @@ lazy val root = Project(
   libraryDependencies ++= Seq(
     filters,
     jdbc,
+    "com.sendgrid"         % "sendgrid-java"                 % "2.0.0",
     "jp.t2v"               %% "play2-auth"                   % "0.13.0",
     "org.mindrot"          % "jbcrypt"                       % "0.3m",
     "org.skinny-framework" %% "skinny-orm"                   % "1.3.13",
