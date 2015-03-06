@@ -12,7 +12,7 @@ import models._
 
 object Admins extends Controller {
   val loginForm = Form {
-    mapping("user" -> nonEmptyText, "password" -> text)(Admin.get.authenticate)(_.map(a => (a.user, "")))
+    mapping("user" -> nonEmptyText, "password" -> text)(Admin.get.authenticate)(_.map(a => (a.username, "")))
       .verifying("Invalid user name or password", result => result.isDefined)
   }
 
@@ -45,7 +45,7 @@ object Admins extends Controller {
         },
         success = { admin =>
           if (!admin.password.isEmpty) {
-            Admin.update(admin.user, admin.password)
+            Admin.update(admin.username, admin.password)
           }
 
           Ok(fillEditAdminForm)
