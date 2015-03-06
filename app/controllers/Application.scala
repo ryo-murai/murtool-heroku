@@ -6,7 +6,6 @@ import models._
 
 object Application extends Controller {
   def index = Action {
-    val admin = Admin.get
-    Ok(s"hello ${admin.username}")
+    Ok(s"hello world")
   }
 }
