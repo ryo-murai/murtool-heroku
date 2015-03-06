@@ -6,6 +6,7 @@ import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
+import play.filters.csrf._
 import jp.t2v.lab.play2.auth.LoginLogout
 import models._
 
@@ -23,41 +24,47 @@ object Admins extends Controller {
     )(Admin.apply)(Admin.unapply)
   }
 
-  def login = Action { implicit request =>
-    Ok(views.html.login(loginForm, routes.Admins.authenticate))
+  def login = CSRFAddToken {
+    Action { implicit request =>
+      Ok(views.html.login(loginForm, routes.Admins.authenticate))
+    }
   }
 
   def promptLogin = Action {
     Redirect(routes.Admins.login)
   }
 
-  def updateAdmin = Action { implicit request =>
-    val adminForm = editAdminForm.bindFromRequest()
+  def updateAdmin = CSRFCheck {
+    Action { implicit request =>
+      val adminForm = editAdminForm.bindFromRequest()
 
-    adminForm.fold(
-      hasErrors = { form =>
-        BadRequest(fillEditAdminForm)
-          .flashing("error" -> "validation error")
-      },
-      success = { admin =>
-        if (!admin.password.isEmpty) {
-          Admin.update(admin.user, admin.password)
+      adminForm.fold(
+        hasErrors = { form =>
+          BadRequest(fillEditAdminForm)
+            .flashing("error" -> "validation error")
+        },
+        success = { admin =>
+          if (!admin.password.isEmpty) {
+            Admin.update(admin.user, admin.password)
+          }
+
+          Ok(fillEditAdminForm)
+            .flashing("success" -> "successfully updated") // cannot use flash without redirect
         }
-
-        Ok(fillEditAdminForm)
-          .flashing("success" -> "successfully updated") // cannot use flash without redirect
-      }
-    )
+      )
+    }
   }
 
-  def authenticate = Action { implicit request =>
-    loginForm.bindFromRequest.fold(
-      formWithErrors =>
-        BadRequest(views.html.login(formWithErrors, routes.Admins.authenticate)),
-      admin => Ok(fillEditAdminForm)
-    )
+  def authenticate = CSRFCheck {
+    Action { implicit request =>
+      loginForm.bindFromRequest.fold(
+        formWithErrors =>
+          BadRequest(views.html.login(formWithErrors, routes.Admins.authenticate)),
+        admin => Ok(fillEditAdminForm)
+      )
+    }
   }
 
-  private def fillEditAdminForm(implicit flash: Flash) =
+  private def fillEditAdminForm(implicit req: RequestHeader) =
     views.html.editAdmin(editAdminForm.fill(Admin.get))
 }

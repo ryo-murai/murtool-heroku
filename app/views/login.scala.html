@@ -1,4 +1,6 @@
-@(form: Form[Option[Admin]], call: Call = routes.Sessions.authenticate)(implicit flash: Flash)
+@import helper._
+
+@(form: Form[Option[Admin]], call: Call = routes.Sessions.authenticate)(implicit flash: Flash, header: RequestHeader)
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +28,7 @@
       <legend>
         Login
       </legend>
+      <p>@CSRF.formField</p>
       <p><input type="user" name="user" placeholder="user name" id="user" value="@form("user").value"></p>
       <p><input type="password" name="password" id="password" placeholder="Password"></p>
     </fieldset>
