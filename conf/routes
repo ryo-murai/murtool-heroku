@@ -1,1 +1,8 @@
-GET     /        controllers.Application.index
+GET     /               controllers.Application.index
+GET     /login          controllers.Sessions.login
+POST    /login          controllers.Sessions.authenticate
+
+GET     /admin          controllers.Admins.login
+POST    /admin          controllers.Admins.authenticate
+GET     /admin/update   controllers.Admins.promptLogin
+POST    /admin/update   controllers.Admins.updateAdmin

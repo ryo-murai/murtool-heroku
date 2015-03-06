@@ -7,7 +7,10 @@ lazy val root = Project(
   scalaVersion := "2.11.5",
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies ++= Seq(
+    filters,
     jdbc,
+    "jp.t2v"               %% "play2-auth"                   % "0.13.0",
+    "org.mindrot"          % "jbcrypt"                       % "0.3m",
     "org.skinny-framework" %% "skinny-orm"                   % "1.3.+",
     "org.scalikejdbc" %% "scalikejdbc-config"                % "2.2.3",
     "org.scalikejdbc" %% "scalikejdbc-play-dbplugin-adapter" % "2.3.4",
