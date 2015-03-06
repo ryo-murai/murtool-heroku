@@ -12,7 +12,7 @@ import models._
 
 object Admins extends Controller {
   val loginForm = Form {
-    mapping("user" -> nonEmptyText, "password" -> text)(Admin.authenticate)(_.map(a => (a.user, "")))
+    mapping("user" -> nonEmptyText, "password" -> text)(Admin.get.authenticate)(_.map(a => (a.user, "")))
       .verifying("Invalid user name or password", result => result.isDefined)
   }
 

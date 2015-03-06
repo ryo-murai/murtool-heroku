@@ -11,7 +11,7 @@ import models._
 
 object Sessions extends Controller with LoginLogout with AdminAuthConfig {
   val loginForm = Form {
-    mapping("user" -> nonEmptyText, "password" -> text)(Admin.authenticate)(_.map(a => (a.user, "")))
+    mapping("user" -> nonEmptyText, "password" -> text)(Admin.get.authenticate)(_.map(a => (a.user, "")))
       .verifying("Invalid user name or password", result => result.isDefined)
   }
 
