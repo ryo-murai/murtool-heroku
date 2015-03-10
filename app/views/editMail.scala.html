@@ -1,0 +1,50 @@
+@import helper._
+
+@(form: Form[EmailMessage])(implicit flash: Flash, header: RequestHeader)
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Compose message</title>
+</head>
+<body>
+  <h2>Message</h2>
+
+  @helper.form(action = routes.Mailings.send) {
+
+    @form.globalError.map { error =>
+      <p class="error">
+        @error.message
+      </p>
+    }
+
+    @flash.get("success").map { message =>
+      <p class="success">
+        @message
+      </p>
+    }
+
+    <fieldset>
+      <legend>
+       New Message
+      </legend>
+      <p>@CSRF.formField</p>
+      <p><label>To:<input type="email" name="to" placeholder="example@@example.com" id="to" value="@form("to").value"></label></p>
+      <p><label>Cc:<input type="email" name="cc" placeholder="example@@example.com" id="cc" value="@form("cc").value"></label></p>
+      <p><label>Bcc:<input type="email" name="bcc" placeholder="example@@example.com" id="bcc" value="@form("bcc").value"></label></p>
+      <p><label>From:<input type="email" name="from" placeholder="example@@example.com" id="from" value="@form("from").value"></label></p>
+      <p><label>Reply-To:<input type="email" name="replyTo" placeholder="example@@example.com" id="replyTo" value="@form("replyTo").value"></label></p>
+      <p><label>Subject:<input type="text" name="subject" placeholder="title" id="subject" value="@form("subject").value"></label></p>
+      <p>
+        <label>Message:</label>
+        <textarea name="body" cols="60" rows="10" id="body">
+          @form("body").value
+        </textarea>
+      </p>
+    </fieldset>
+    <p>
+      <input type="submit" class="btn primary" value='Send'>
+      <button class="btn"><a class="btn primary" href="/">Cancel</a></button>
+    </p>
+  }
+</body>
