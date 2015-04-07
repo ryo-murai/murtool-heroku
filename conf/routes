@@ -9,3 +9,5 @@ POST    /admin/update   controllers.Admins.updateAdmin
 
 GET     /mailing        controllers.Mailings.edit 
 POST    /mailing        controllers.Mailings.send 
+
+GET     /mifttt         controllers.MIfttt.archvPind

@@ -7,8 +7,10 @@ lazy val root = Project(
   scalaVersion := "2.11.5",
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies ++= Seq(
+    ws,
     filters,
     jdbc,
+    "com.github.nscala-time" %% "nscala-time"                % "1.8.0",
     "com.sendgrid"         % "sendgrid-java"                 % "2.0.0",
     "jp.t2v"               %% "play2-auth"                   % "0.13.0",
     "org.mindrot"          % "jbcrypt"                       % "0.3m",
